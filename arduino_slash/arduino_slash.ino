@@ -11,6 +11,7 @@ int STEER_OUTPUT = 9;
 
 // DEFINE VARIABLES
 int THRO_POSITION = 0;
+int STEER_POSITION = 0;
 int SERIAL_DATA;
 int SERIAL_CHAR;
 
@@ -27,9 +28,10 @@ void setup() {
 }
 
 void loop() {
+  STEER_POSITION = pulseIn(STEER_INPUT, HIGH);
+  //Serial.println(map(STEER_POSITION, 970, 1960, 0, 180));
+  STEER_SERVO.write(map(STEER_POSITION, 970, 1960, 0, 180));
+
   THRO_POSITION = pulseIn(THRO_INPUT, HIGH);
-  
-  Serial.println(map(THRO_POSITION, 970, 1960, 0, 180));
-  
-  STEER_SERVO.write(map(THRO_POSITION, 970, 1960, 0, 180));
+  Serial.println(THRO_POSITION);
 }
