@@ -1,2 +1,2 @@
 # arduino-slash
- Computer controlled RC
+ Computer controlled and assisted RC 4x4
