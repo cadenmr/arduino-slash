@@ -3,11 +3,10 @@
 
 #include <Servo.h>
 
-// PIN ASSIGNMENTS
-int THRO_INPUT = 3;
-int STEER_INPUT = 5;
-int THRO_OUTPUT = 6;
-int STEER_OUTPUT = 9;
+#define THRO_INPUT 3
+#define STEER_INPUT 5
+#define THRO_OUTPUT 6
+#define STEER_OUTPUT 9
 
 // DEFINE VARIABLES
 int THRO_POSITION = 0;
