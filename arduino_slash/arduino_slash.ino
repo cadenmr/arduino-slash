@@ -36,7 +36,11 @@ void loop() {
   //Serial.println("Steer: " + String(pwm_value_1));
 
   //Serial.println("Throttle: " + String(pwm_value_2));
-  ESC.write(pwm_value_2);
+  if (pwm_value_2 > 1950) {
+    ESC.write(2000);
+  } else {
+    ESC.write(pwm_value_2);
+  }
 }
 
 void rising_1() {
