@@ -46,8 +46,7 @@ void setup() {
   Serial.begin(115200);
   Serial.setTimeout(2);
   Bluetooth.begin(115200);
-  Bluetooth.setTimeout(2);
-
+  Bluetooth.setTimeout(1);
 
   //Bluetooth.println("Ready");
 
@@ -64,7 +63,7 @@ void loop() {
   STEER_SERVO.write(map(steer_command, -2000, 2000, 0, 180));
   ESC.write(map(thro_command, -1000, 1000, 950, 1950));
 
-  //delay(2);
+  delay(5);
 }
 
 // Interrupt functions
@@ -92,8 +91,8 @@ void falling_2() {
 // +-0000,+-0000
 //  steer,throttle
 void read_serial_data() {
-  if (Bluetooth.available()) {
-    recieved_data = Bluetooth.readString();
+  if (Serial.available()) {
+    recieved_data = Serial.readString();
 
     thro_state_byte = char(recieved_data[6]);
     steer_state_byte = char(recieved_data[0]);
@@ -120,6 +119,7 @@ void read_serial_data() {
       thro_command = thro_command - (thro_command * 2);
     }
 
+    //Serial.println(recieved_data);
     
     recieved_data = "";
     //Serial.flush();
