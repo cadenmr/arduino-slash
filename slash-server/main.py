@@ -14,7 +14,7 @@ except serial.serialutil.SerialException:
         slash = serial.Serial('/dev/ttyACM0', baudrate=115200)  # If wireless is unavaliable, try wired
         print('Connected to Arduino via wire')
     except serial.serialutil.SerialException: # If neither is found, print error and quit
-        print("Arduino not found. Please check connection.")
+        print("Arduino not found. Please check connection. (Did you rfcomm bind first?)")
         print("Tried: /dev/rfcomm0, /dev/ttyACM0")
         quit()
 
