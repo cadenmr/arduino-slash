@@ -2,18 +2,29 @@ import serial
 import time
 import controller
 
-# Amount of time to wait to keep bluetooth managable
+# Update & poll rate
 timing = 0.05
 
-# Define objects
-slash = serial.Serial('/dev/ttyACM0', baudrate=115200) # initialize serial
-controller = controller.Controller(10000)
+# Try connecton to wired and wireless serial ports
+try:
+    slash = serial.Serial('/dev/rfcomm0', baudrate=115200)  # First, try wireless
+    print('Connected to Arduino via Bluetooth')
+except serial.serialutil.SerialException:
+    try:
+        slash = serial.Serial('/dev/ttyACM0', baudrate=115200)  # If wireless is unavaliable, try wired
+        print('Connected to Arduino via wire')
+    except serial.serialutil.SerialException: # If neither is found, print error and quit
+        print("Arduino not found. Please check connection.")
+        print("Tried: /dev/rfcomm0, /dev/ttyACM0")
+        quit()
+
+controller = controller.Controller(10000)  # Xbox 360 Controller using the controller class
+
+print('Ready')
 
 while True:
-    controller.read_controller()
-    slash.write(controller.get_parsed_string().encode())
-    slash.flush()
+    controller.read_controller()  # Read data from controller
+    slash.write(controller.get_parsed_string().encode())  # Get controller's last read data, encode it, send it
+    slash.flush()  # Flush buffer after sending (precautionary)
 
-    print(controller.get_parsed_string())
-
-    time.sleep(timing)
+    time.sleep(timing)  # Prevent constant polling and 100% CPU usage
