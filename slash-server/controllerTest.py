@@ -1,3 +1,5 @@
+# Simple Xbox 360 controller unit test
+
 import controller
 import time
 
