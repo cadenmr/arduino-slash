@@ -34,7 +34,7 @@ String recieved_data;
 
 Servo STEER_SERVO;
 Servo ESC;
-SoftwareSerial Bluetooth(11, 10); // RX, TX
+SoftwareSerial Bluetooth(10, 9); // RX, TX
 
 void setup() {
   STEER_SERVO.attach(STEER_OUTPUT);
@@ -44,11 +44,12 @@ void setup() {
   //ESC.write(90);
 
   Serial.begin(115200);
-  Serial.setTimeout(3);
-  Bluetooth.begin(57600);
-  Bluetooth.setTimeout(7);
+  Serial.setTimeout(2);
+  Bluetooth.begin(115200);
+  Bluetooth.setTimeout(2);
 
-  Bluetooth.println("Ready");
+
+  //Bluetooth.println("Ready");
 
   //Serial.println("Ready");
 
@@ -91,8 +92,8 @@ void falling_2() {
 // +-0000,+-0000
 //  steer,throttle
 void read_serial_data() {
-  if (Serial.available()) {
-    recieved_data = Serial.readString();
+  if (Bluetooth.available()) {
+    recieved_data = Bluetooth.readString();
 
     thro_state_byte = char(recieved_data[6]);
     steer_state_byte = char(recieved_data[0]);
