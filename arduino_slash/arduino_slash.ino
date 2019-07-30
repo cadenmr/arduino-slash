@@ -14,9 +14,6 @@ volatile int prev_time_1 = 0;
 volatile int pwm_value_2 = 0;
 volatile int prev_time_2 = 0;
 
-<<<<<<< Updated upstream
-// DEFINE OBJECTS
-=======
 char steer_state_byte = '+';
 char thro_state_byte = '+';
 
@@ -35,20 +32,14 @@ int thro_command;
 
 String recieved_data;
 
->>>>>>> Stashed changes
 Servo STEER_SERVO;
 Servo ESC;
 SoftwareSerial Bluetooth(11, 10); // RX, TX
 
 void setup() {
-  //pinMode(THRO_OUTPUT, OUTPUT);
   STEER_SERVO.attach(STEER_OUTPUT);
   ESC.attach(THRO_OUTPUT);
 
-<<<<<<< Updated upstream
-  Serial.begin(9600);
-  Bluetooth.begin(9600);
-=======
   STEER_SERVO.write(90);
   //ESC.write(90);
 
@@ -56,7 +47,6 @@ void setup() {
   Serial.setTimeout(2);
   Bluetooth.begin(57600);
   Bluetooth.setTimeout(7);
->>>>>>> Stashed changes
 
   Bluetooth.println("Ready");
 
@@ -67,17 +57,6 @@ void setup() {
 }
 
 void loop() {
-<<<<<<< Updated upstream
-  STEER_SERVO.write(pwm_value_1);
-  //Serial.println("Steer: " + String(pwm_value_1));
-
-  //Serial.println("Throttle: " + String(pwm_value_2));
-  if (pwm_value_2 > 1950) {
-    ESC.write(2000);
-  } else {
-    ESC.write(pwm_value_2);
-  }
-=======
   read_serial_data();
   
   //STEER_SERVO.write(pwm_value_1);
@@ -85,9 +64,9 @@ void loop() {
   ESC.write(map(thro_command, -1000, 1000, 950, 1950));
 
   //delay(2);
->>>>>>> Stashed changes
 }
 
+// Interrupt functions
 void rising_1() {
   attachInterrupt(0, falling_1, FALLING);
   prev_time_1 = micros();
@@ -107,8 +86,6 @@ void falling_2() {
   attachInterrupt(1, rising_2, RISING);
   pwm_value_2 = micros()-prev_time_2;
 }
-<<<<<<< Updated upstream
-=======
 
 // Serial data input in accordance to data struct
 // +-0000,+-0000
@@ -156,4 +133,3 @@ void esc_set_speed(int value) {
     ESC.write(value);
   }
 }
->>>>>>> Stashed changes
