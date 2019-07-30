@@ -3,7 +3,7 @@ import time
 import controller
 
 # Update & poll rate
-timing = 0.05
+timing = 0.01
 
 # Try connecton to wired and wireless serial ports
 try:
