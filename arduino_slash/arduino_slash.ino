@@ -44,7 +44,7 @@ void setup() {
   //ESC.write(90);
 
   Serial.begin(115200);
-  Serial.setTimeout(2);
+  Serial.setTimeout(3);
   Bluetooth.begin(57600);
   Bluetooth.setTimeout(7);
 
