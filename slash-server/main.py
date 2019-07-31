@@ -3,7 +3,7 @@ import time
 import controller
 
 # Update & poll rate
-timing = 0.01
+timing = 0.02
 
 # Try connecton to wired and wireless serial ports
 try:
@@ -25,6 +25,6 @@ print('Ready')
 while True:
     controller.read_controller()  # Read data from controller
     slash.write(controller.get_parsed_string().encode())  # Get controller's last read data, encode it, send it
-    slash.flush()  # Wait for the buffer to fully empty before proceeding
+    # slash.flush()  # Wait for the buffer to fully empty before proceeding
 
     time.sleep(timing)  # Prevent constant polling and 100% CPU usage
