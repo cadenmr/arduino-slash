@@ -48,10 +48,6 @@ void setup() {
   Bluetooth.begin(115200);
   Bluetooth.setTimeout(1);
 
-  //Bluetooth.println("Ready");
-
-  //Serial.println("Ready");
-
   //attachInterrupt(0, rising_1, RISING);
   //attachInterrupt(1, rising_2, RISING);
 }
