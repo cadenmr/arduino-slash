@@ -4,14 +4,14 @@ import controller
 import signal
 
 # Update & poll rate
-timing = 0.02
+timing = 0.01
 run = True
 
 
 def sigint_handler(*_):
     global run
 
-    print("CTRL+C Pressed, quitting...")
+    print(" pressed, quitting...")
     run = False
     controller.disconnect()
 
