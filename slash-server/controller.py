@@ -2,7 +2,7 @@ import xbox
 
 
 class Controller:
-    def __init__(self, deadzone):  # Constructor. Takes in a joystick deadzone.
+    def __init__(self, deadzone=10000):  # Constructor. Takes in a joystick deadzone.
         self.joy = xbox.Joystick()
         self.joyDeadzone = deadzone
 
@@ -77,4 +77,3 @@ class Controller:
         # Disconnect controller
 
         self.joy.close()
-        return 'Safe to disconnect'

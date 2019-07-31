@@ -1,11 +1,21 @@
 import serial
 import time
 import controller
+import signal
 
 # Update & poll rate
 timing = 0.02
+run = True
 
-# Try connecton to wired and wireless serial ports
+
+def sigint_handler(*_):
+    global run
+
+    print("CTRL+C Pressed, quitting...")
+    run = False
+    controller.disconnect()
+
+# Try connection to wired and wireless serial ports
 try:
     slash = serial.Serial('/dev/rfcomm0', baudrate=115200)  # First, try wireless
     print('Connected to Arduino via Bluetooth')
@@ -19,10 +29,11 @@ except serial.serialutil.SerialException:
         quit()
 
 controller = controller.Controller(10000)  # Xbox 360 Controller using the controller class
+signal.signal(signal.SIGINT, sigint_handler)
 
 print('Ready')
 
-while True:
+while run:
     controller.read_controller()  # Read data from controller
     slash.write(controller.get_parsed_string().encode())  # Get controller's last read data, encode it, send it
 
