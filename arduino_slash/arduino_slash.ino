@@ -63,7 +63,7 @@ void loop() {
   STEER_SERVO.write(map(steer_command, -2000, 2000, 0, 180));
   ESC.write(map(thro_command, -1000, 1000, 950, 1950));
 
-  delay(5);
+  //delay(5);
 }
 
 // Interrupt functions
