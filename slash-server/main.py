@@ -25,6 +25,5 @@ print('Ready')
 while True:
     controller.read_controller()  # Read data from controller
     slash.write(controller.get_parsed_string().encode())  # Get controller's last read data, encode it, send it
-    # slash.flush()  # Wait for the buffer to fully empty before proceeding
 
     time.sleep(timing)  # Prevent constant polling and 100% CPU usage
