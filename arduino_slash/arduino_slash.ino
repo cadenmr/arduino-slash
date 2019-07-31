@@ -43,10 +43,10 @@ void setup() {
   STEER_SERVO.write(90);
   //ESC.write(90);
 
-  Serial.begin(56700);
+  Serial.begin(115200);
   Serial.setTimeout(2);
-  Bluetooth.begin(57600);
-  Bluetooth.setTimeout(2);
+  Bluetooth.begin(115200);
+  Bluetooth.setTimeout(1);
 
   //Bluetooth.println("Ready");
 
@@ -122,6 +122,7 @@ void read_serial_data() {
     //Serial.println(recieved_data);
     
     recieved_data = "";
+    //Serial.flush();
   }
 }
 
