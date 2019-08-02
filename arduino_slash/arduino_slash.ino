@@ -44,7 +44,7 @@ void setup() {
   //ESC.write(90);
 
   Serial.begin(115200);
-  Serial.setTimeout(2);
+  Serial.setTimeout(3);
   Bluetooth.begin(115200);
   Bluetooth.setTimeout(1);
 
@@ -59,7 +59,7 @@ void loop() {
   STEER_SERVO.write(map(steer_command, -2000, 2000, 0, 180));
   ESC.write(map(thro_command, -1000, 1000, 950, 1950));
 
-  //delay(5);
+  delay(5);
 }
 
 // Interrupt functions
