@@ -5,9 +5,9 @@ import signal
 
 configfile = open('server.conf', 't+r')  # Open configfile for text reading
 config_list = [ d.replace('\n', '') for d in configfile ]  # Parse the file
-timing, baurdrate, * = config_list  # Unpack the parsed list
+timing, baudrate, *_ = config_list  # Unpack the parsed list
 timing = float(timing.split()[2])  # Grab the value
-baurdrate = float(baurdrate.split()[2])
+baudrate = float(baudrate.split()[2])
 configfile.close()  # Close the config file
 
 def sigint_handler(*_):  # SIGINT handler function
@@ -21,7 +21,7 @@ try:
     print('Connected to Arduino via Bluetooth')
 except serial.serialutil.SerialException:
     try:
-        slash = serial.Serial('/dev/ttyACM0', baudrate=baurdrate)  # If wireless is unavaliable, try wired
+        slash = serial.Serial('/dev/ttyACM0', baudrate=baudrate)  # If wireless is unavaliable, try wired
         print('Connected to Arduino via wire')
     except serial.serialutil.SerialException: # If neither is found, print error and quit
         print("Arduino not found. Please check connection. (Did you rfcomm bind first?)")
