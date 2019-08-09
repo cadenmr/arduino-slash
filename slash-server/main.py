@@ -2,7 +2,6 @@ import serial
 from time import sleep
 import controller
 import signal
-from os import system
 
 configfile = open('server.config', 't+r')  # Open configfile for text reading
 config_list = [ d.replace('\n', '') for d in configfile ]  # Parse the file
