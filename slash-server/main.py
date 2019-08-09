@@ -3,9 +3,9 @@ from time import sleep
 import controller
 import signal
 
-configfile = open('server.config', 't+r')  # Open configfile for text reading
+configfile = open('server.conf', 't+r')  # Open configfile for text reading
 config_list = [ d.replace('\n', '') for d in configfile ]  # Parse the file
-timing, baurdrate = config_list  # Unpack the parsed list
+timing, baurdrate, * = config_list  # Unpack the parsed list
 timing = float(timing.split()[2])  # Grab the value
 baurdrate = float(baurdrate.split()[2])
 configfile.close()  # Close the config file
