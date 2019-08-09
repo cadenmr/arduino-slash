@@ -5,7 +5,6 @@ import signal
 
 # Update & poll rate
 timing = 0.01
-run = True
 
 
 def sigint_handler(*_):
@@ -14,6 +13,7 @@ def sigint_handler(*_):
     print(" pressed, quitting...")
     run = False
     controller.disconnect()
+    quit()
 
 # Try connection to wired and wireless serial ports
 try:
@@ -33,7 +33,7 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 print('Ready')
 
-while run:
+while True:
     controller.read_controller()  # Read data from controller
     slash.write(controller.get_parsed_string().encode())  # Get controller's last read data, encode it, send it
 
