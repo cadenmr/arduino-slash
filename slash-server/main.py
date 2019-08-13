@@ -31,6 +31,23 @@ except serial.serialutil.SerialException:
 controller = controller.Controller(10000)  # Xbox 360 Controller using the controller class
 signal.signal(signal.SIGINT, sigint_handler)  # SIGINT handler setup
 
+sleep(2)
+
+slash.write('+1000,+0000'.encode())
+sleep(0.3)
+slash.write('-1000,+0000'.encode())
+sleep(0.3)
+slash.write('+1000,+0000'.encode())
+sleep(0.3)
+slash.write('-1000,+0000'.encode())
+sleep(0.3)
+slash.write('+0000,+0000'.encode())
+sleep(0.5)
+slash.write('+0000,+0047'.encode()) # Arm the ESC
+sleep(0.5)
+
+print('Ready')
+
 while True:
     controller.read_controller()  # Read data from controller
     slash.write(controller.get_parsed_string().encode())  # Get controller's last read data, encode it, send it

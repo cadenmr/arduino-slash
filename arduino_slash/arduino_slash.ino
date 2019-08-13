@@ -32,21 +32,22 @@ int thro_command;
 
 String recieved_data;
 
+int disconnect_trip = 0;
+
 Servo STEER_SERVO;
 Servo ESC;
-SoftwareSerial Bluetooth(10, 9); // RX, TX
+//SoftwareSerial Bluetooth(10, 9); // RX, TX
 
 void setup() {
   STEER_SERVO.attach(STEER_OUTPUT);
   ESC.attach(THRO_OUTPUT);
 
   STEER_SERVO.write(90);
-  //ESC.write(90);
 
   Serial.begin(115200);
   Serial.setTimeout(3);
-  Bluetooth.begin(115200);
-  Bluetooth.setTimeout(1);
+//  Bluetooth.begin(115200);
+//  Bluetooth.setTimeout(1);
 
   //attachInterrupt(0, rising_1, RISING);
   //attachInterrupt(1, rising_2, RISING);
@@ -57,7 +58,7 @@ void loop() {
   
   //STEER_SERVO.write(pwm_value_1);
   STEER_SERVO.write(map(steer_command, -2000, 2000, 0, 180));
-  ESC.write(map(thro_command, -1000, 1000, 950, 1950));
+  ESC.write(map(thro_command, -1100, 1100, 0, 180));
 
   delay(5);
 }
@@ -114,11 +115,18 @@ void read_serial_data() {
     if (thro_state_byte == '-') {
       thro_command = thro_command - (thro_command * 2);
     }
-
-    //Serial.println(recieved_data);
     
     recieved_data = "";
-    //Serial.flush();
+    disconnect_trip = 0;
+    
+  } else {
+    if (disconnect_trip >= 4){
+          thro_command = 0;
+          steer_command = 0;
+          steer_state_byte = '+';
+          thro_state_byte = '+';
+    }
+    disconnect_trip = disconnect_trip + 1;
   }
 }
 
